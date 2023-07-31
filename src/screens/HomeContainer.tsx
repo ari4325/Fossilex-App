@@ -1,22 +1,22 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './HomeScreen';
-import ProfileScreen from './ProfileScreen';
-import ScanScreen from './ScanScreen';
+import { NavigationContainerRef, NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Dashboard from './HomeScreen';
+import TransferMoney from './PaymentMethod';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const App: React.FC = () => {
+const HomeContainer: React.FC = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Scan" component={ScanScreen} />
-      </Tab.Navigator>
+    <NavigationContainer independent={true}>
+      <Stack.Navigator initialRouteName="Dashboard" screenOptions={{
+        header: ()=> null
+      }}>
+        <Stack.Screen name="Dashboard" component={Dashboard}  />
+        <Stack.Screen name="Payment" component={TransferMoney} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default App;
+export default HomeContainer;
