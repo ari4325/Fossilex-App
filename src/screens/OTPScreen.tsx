@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 
 import { Color, FontFamily, FontSize, Border } from "../styles/OTPScreenStyles";
 import ThemeButton from '../components/ThemeButton';
+import { StackActions } from '@react-navigation/native';
 
 const OTPScreen: React.FC <{ navigation: any }> = ({ navigation }) => {
   const [otp, setOTP] = useState('');
@@ -16,7 +17,7 @@ const OTPScreen: React.FC <{ navigation: any }> = ({ navigation }) => {
     // Here, you can handle the OTP submission logic using the otp state value
     // For simplicity, we'll just print the OTP for now.
     console.log('Submitted OTP:', otp);
-    navigation.navigate('Home');
+    navigation.dispatch(StackActions.replace('Home'));
   };
 
   const handleResend = () => {
@@ -24,8 +25,7 @@ const OTPScreen: React.FC <{ navigation: any }> = ({ navigation }) => {
     console.log('Resending OTP...');
   };
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.frame}>
+    <View style={{flex: 1, alignItems: 'center'}}>
         <View style={styles.backarrow}>
           <View style={styles.backarrowChild} />
           <Image
@@ -38,12 +38,14 @@ const OTPScreen: React.FC <{ navigation: any }> = ({ navigation }) => {
         <Text style={[styles.enterTheVerification, styles.didntReceiveCodeClr]}>
           Enter the verification code we just sent to your number +91 ********53.
         </Text>
+        <View style={styles.frame}>
         <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
-        <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
-        <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
-        <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
-        <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
-        <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
+          <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
+          <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
+          <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
+          <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
+          <TextInput maxLength={1} keyboardType='numeric' style={styles.frameChild} />
+        </View>
         <Text
           style={[
             styles.didntReceiveCodeContainer,
@@ -55,7 +57,7 @@ const OTPScreen: React.FC <{ navigation: any }> = ({ navigation }) => {
           >{`Didn’t receive code? `}</Text>
           <Text style={styles.resend}>Resend</Text>
         </Text>
-      </View>
+      
       <ThemeButton onPress={handleSubmit} title='Submit' />
     </View>
   );
@@ -64,7 +66,7 @@ const OTPScreen: React.FC <{ navigation: any }> = ({ navigation }) => {
 const styles = StyleSheet.create({
   didntReceiveCodeClr: {
     color: Color.gray_100,
-    fontFamily: FontFamily.poppinsRegular,
+    fontFamily: FontFamily.poppinsRegular
   },
   enterTheVerificationTypo: {
     fontSize: FontSize.size_sm,
@@ -110,20 +112,24 @@ const styles = StyleSheet.create({
   backarrow: {
     width: 50,
     height: 50,
+    alignSelf: 'flex-start'
   },
   otpVerification: {
     fontSize: 30,
     color: "#1e232c",
-    marginLeft: 12,
-    width: 335,
+    marginLeft: 35,
+    marginTop: 100,
+    alignSelf: 'flex-start',
     textAlign: "left",
     fontFamily: FontFamily.poppinsSemiBold,
-    fontWeight: "600",
+    fontWeight: "bold",
   },
   enterTheVerification: {
     fontSize: FontSize.size_sm,
-    marginLeft: 12,
-    width: 335,
+    marginLeft: 35,
+    marginEnd: 35,
+    marginTop: 20,
+    alignSelf: 'flex-start',
     textAlign: "left",
     fontFamily: FontFamily.poppinsRegular,
   },
@@ -135,7 +141,6 @@ const styles = StyleSheet.create({
     width: 46,
     marginLeft: 12,
     borderRadius: Border.br_5xs,
-    height: 50,
     textAlign: "center"
   },
   resend: {
@@ -145,12 +150,13 @@ const styles = StyleSheet.create({
   },
   didntReceiveCodeContainer: {
     textAlign: "center",
+    marginTop: 20,
+    marginBottom: 20
   },
   frame: {
-    flex: 1,
-    width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
+    padding: 10
   }
 });
 

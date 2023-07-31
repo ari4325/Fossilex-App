@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeContainer from './HomeContainer';
 import ProfileScreen from './ProfileScreen';
@@ -10,7 +10,7 @@ import NotificationScreen from './NotificationScreen';
 
 const Tab = createBottomTabNavigator();
 
-const App: React.FC = () => {
+const App: React.FC <{ navigation: any }> = ({ navigation }) => {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator screenOptions={{
